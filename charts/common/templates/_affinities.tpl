@@ -12,7 +12,6 @@ requiredDuringSchedulingIgnoredDuringExecution: {{ include "common.nodeAffinity"
 
 {{/*
 Returns a preferred nodeAffinity definition
-
 Usage:
 {{ include "common.nodeAffinity.preferred" . }}
 */}}
@@ -27,7 +26,6 @@ Usage:
 
 {{/*
 Return a required nodeAffinity definition
-
 Usage:
 {{ include "common.nodeAffinity.required" . }}
 

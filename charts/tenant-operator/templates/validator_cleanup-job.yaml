@@ -1,11 +1,17 @@
+#
+# Clean up resources that have been created by the prevois version of the init job and not managed by Helm.
+#
+
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ include "tenant-validator.preDeleteHookName" . }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    helm.sh/hook: pre-delete
-    helm.sh/hook-delete-policy: hook-succeeded, hook-failed
+    "helm.sh/hook": pre-delete, pre-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+  labels:
+  {{- include "tenant-validator.selectorLabels" . | nindent 4 }}
 spec:
   template:
     spec:
@@ -18,5 +24,15 @@ spec:
         - name: pre-delete-container
           image: "{{ .Values.image.baseRepository }}/{{ .Values.image.validatorImageName }}:{{ .Values.image.validatorTag }}"
           imagePullPolicy: IfNotPresent
-          command: ["/opt/validator/deploy/tenantvalidator-uninstall.sh", "{{ .Release.Namespace }}"]
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              AUTH="Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)"
+              curl -ik -X DELETE -H "$AUTH" -H "Accept: application/json" -H "Content-Type: application/json" \
+                https://kubernetes.default.svc/api/v1/namespaces/{{ .Release.Namespace }}/secrets/tenant-validator-certs
+              curl -ik -X DELETE -H "$AUTH" -H "Accept: application/json" -H "Content-Type: application/json" \
+                https://kubernetes.default.svc/apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/tenant-validator-mutating-webhook-cfg
+              curl -ik -X DELETE -H "$AUTH" -H "Accept: application/json" -H "Content-Type: application/json" \
+                https://kubernetes.default.svc/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/tenant-validator-validating-webhook-cfg
       restartPolicy: OnFailure

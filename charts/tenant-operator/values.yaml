@@ -8,7 +8,7 @@ image:
   baseRepository: gcr.io/mapr-252711
   operatorImageName: tenantoperator-1.0.0
   pullPolicy: Always
-  operatorTag: "202410011123"
+  operatorTag: "202410161031"
   validatorImageName: tenantvalidator-1.0.0
   validatorTag: "202410011123"
 

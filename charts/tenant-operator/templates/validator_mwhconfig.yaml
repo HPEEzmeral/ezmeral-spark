@@ -1,0 +1,24 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ include "tenant-validator.webhookMutatingConfigurationName" . }}
+  labels:
+  {{- include "tenant-validator.selectorLabels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "tenant-validator.certManagerCertificate" . }}
+webhooks:
+  - name: {{ include "tenant-validator.webhookMutatingName" . }}.hcp.hpe.com
+    failurePolicy: Ignore
+    clientConfig:
+      service:
+        name: {{ include "tenant-validator.svcName" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /hcp/tenant/v1/mutate
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: ["hcp.hpe.com"]
+        apiVersions: ["v1"]
+        resources: ["tenants"]
+    sideEffects: NoneOnDryRun
+    admissionReviewVersions: ["v1"]
+    timeoutSeconds: 20

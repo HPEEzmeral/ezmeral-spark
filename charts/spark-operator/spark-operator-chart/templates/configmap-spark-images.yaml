@@ -10,13 +10,13 @@ metadata:
   labels:
     {{- include "spark-images.labels" . | nindent 4 }}
 data:
-  DEFAULT_IMAGE: gcr.io/mapr-252711/spark-3.5.2:v3.5.2.0.2
-  DEFAULT_IMAGE_SHORT: spark-3.5.2:v3.5.2.0.2
+  DEFAULT_IMAGE: gcr.io/mapr-252711/spark-3.5.1:v3.5.1.0.5
+  DEFAULT_IMAGE_SHORT: spark-3.5.1:v3.5.1.0.5
   images.yaml: |
     images:
-    - image: gcr.io/mapr-252711/spark-3.5.2:v3.5.2.0.2
-      imageShort: spark-3.5.2:v3.5.2.0.2
-      sparkVersion: 3.5.2
+    - image: gcr.io/mapr-252711/spark-3.5.1:v3.5.1.0.5
+      imageShort: spark-3.5.1:v3.5.1.0.5
+      sparkVersion: 3.5.1
       labels:
       - lang/java
       - lang/python
@@ -29,9 +29,9 @@ data:
       - controller/livy
 
 
-    - image: gcr.io/mapr-252711/spark-3.5.1:v3.5.1.0.4
-      imageShort: spark-3.5.1:v3.5.1.0.4
-      sparkVersion: 3.5.1
+    - image: gcr.io/mapr-252711/spark-3.5.0:v3.5.0.3.6
+      imageShort: spark-3.5.0:v3.5.0.3.6
+      sparkVersion: 3.5.0
       labels:
       - feature/gpu
       - lang/java
@@ -44,10 +44,10 @@ data:
       - controller/livy
 
 
-    - image: gcr.io/mapr-252711/apache-spark:3.5.2-en
-      imageShort: apache-spark:3.5.2-en
+    - image: gcr.io/mapr-252711/apache-spark:3.5.1-en2
+      imageShort: apache-spark:3.5.1-en2
       description: Open source Spark image for Java/Scala applications
-      sparkVersion: 3.5.2
+      sparkVersion: 3.5.1
       labels:
       - lang/java
       - lang/py
@@ -58,10 +58,10 @@ data:
       - controller/spark-operator
 
 
-    - image: gcr.io/mapr-252711/apache-spark:3.5.1-en
-      imageShort: apache-spark:3.5.1-en
+    - image: gcr.io/mapr-252711/apache-spark:3.5.0-en2
+      imageShort: apache-spark:3.5.0-en2
       description: Open source Spark image for Java/Scala applications
-      sparkVersion: 3.5.1
+      sparkVersion: 3.5.0
       labels:
       - feature/gpu
       - lang/java

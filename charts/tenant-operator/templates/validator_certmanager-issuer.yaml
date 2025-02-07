@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "tenant-validator.certManagerIssuer" . }}
+  labels:
+  {{- include "tenant-validator.selectorLabels" . | nindent 4 }}
+spec:
+  selfSigned: {}

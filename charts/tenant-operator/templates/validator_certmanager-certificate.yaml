@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "tenant-validator.certManagerCertificate" . }}
+  labels:
+  {{- include "tenant-validator.selectorLabels" . | nindent 4 }}
+spec:
+  dnsNames:
+    - {{ include "tenant-validator.svcName" . }}.{{ .Release.Namespace }}.svc
+    - {{ include "tenant-validator.svcName" . }}.{{ .Release.Namespace }}.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: {{ include "tenant-validator.certManagerIssuer" . }}
+  secretName: tenant-validator-cert

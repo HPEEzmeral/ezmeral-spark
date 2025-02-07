@@ -106,18 +106,15 @@ autotix:
     requests:
       memory: 1Gi
       cpu: 500m
-  # Note: all ENV variables override value from 'configuration'
   # add env variable to add labels for observability -- default is set to true
 #  configureLabel: true
   # add env variable to enable audit Logging
-#  auditLoggingEnable: false
+#  auditLoggingEnable: true
   # add env variable for auditLogging URL
-  #auditLoggingURL: "http://ua-monitor-svc.monitoring.svc.cluster.local:3333/monitoring/v1/audit"
-#  auditLoggingURL: ""
+#  auditLoggingURL: "http://ua-monitor-svc.monitoring.svc.cluster.local:3333/monitoring/v1/audit"
   # enable auto-setting 'SPARK_USER' env variables by autotix webhook
   # lookup_user_svc values - nativesssd (using AD/LDAP), uaconfigmap (without AD/LDAP)
   autoSetSparkUserNameEnvs: true
-  # labels for observability
   configuration:
     labeling:
       enabled: false

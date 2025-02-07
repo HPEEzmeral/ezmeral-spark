@@ -103,11 +103,9 @@ resources:
    limits:
      cpu: 2000m
      memory: 2Gi
-     ephemeral-storage: 30Gi
    requests:
      cpu: 1000m
      memory: 1Gi
-     ephemeral-storage: 30Gi
 
 #owner Reference
 ownerReference:
@@ -131,7 +129,7 @@ eventlogstorage:
 #  ## If set to "-", storageClass: "", which disables dynamic provisioning
 #  ## If undefined (the default) or set to null, no storageClass spec is set. Default storageClass will be used.
 ## storageClass: "-"
-#  storageSize: 8Gi
+#  storageSize: 5Gi
 #  ## Add specs related to PV volume plugin to create a PV for the PVC. If volumePluginSpec is
 #  ## not set any available PV would be used for the PVC
 ##  volumePluginSpec: {}
@@ -139,6 +137,8 @@ eventlogstorage:
 
 # Data provided in "sparkExtraConfigs" will be added to spark configuration through a K8S secret
 # Useful to pass secure config options to spark, e.g. S3 credentials or ACL configurations
+# Note: For EZAF envs, this value is set via corresponding 'start.sh' script because it requires reading local env variables
+# at install time. Helm charts do not support that (https://github.com/helm/helm/issues/10026)
 sparkExtraConfigs: |
   spark.history.ui.acls.enable true
   spark.history.ui.admin.acls mapr
@@ -146,7 +146,7 @@ sparkExtraConfigs: |
   spark.history.fs.cleaner.maxAge 12h
   spark.history.fs.cleaner.interval 6h
   spark.eventLog.rolling.enabled true
-  spark.eventLog.rolling.maxFileSize 64m
+  spark.eventLog.rolling.maxFileSize 128m
   spark.history.fs.eventLog.rolling.maxFilesToRetain 2
 #  spark.ssl.historyServer.enabled           true
 #  spark.ssl.historyServer.keyStore          /var/spark/ssl_keystore

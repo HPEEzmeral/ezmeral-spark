@@ -43,7 +43,7 @@ spec:
           preferredDuringSchedulingIgnoredDuringExecution:
           {{-  include "common.nodeAffinity.preferred" . | nindent 12 }}
           requiredDuringSchedulingIgnoredDuringExecution:
-        {{-  include "common.nodeAffinity.required" . | nindent 12 }}
+          {{-  include "common.nodeAffinity.required" . | nindent 12 }}
         {{- end }}
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
