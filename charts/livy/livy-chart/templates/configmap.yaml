@@ -55,6 +55,10 @@ data:
     {{- end }}
 
   spark-blacklist.conf: |
+    # Disallow an ability to manually specify user secret for Spark Jobs
+    # as Livy Server doesn't have a mechanism to do an authorization properly for this.
+    spark.mapr.user.secret
+
     {{- if .Values.autosetNamespace.enable }}
     spark.kubernetes.namespace
     spark.kubernetes.authenticate.driver.serviceAccountName

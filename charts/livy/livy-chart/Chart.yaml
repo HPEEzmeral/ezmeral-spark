@@ -2,8 +2,8 @@ apiVersion: v2
 name: livy
 description: A Helm chart for Apache Livy
 type: application
-version: 0.6.11
-appVersion: "0.8.0.5"
+version: 0.6.13
+appVersion: "0.8.0.6"
 dependencies:
   - name: common
     repository: "file://../../common/"

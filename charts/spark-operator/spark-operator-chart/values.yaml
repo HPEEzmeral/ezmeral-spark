@@ -124,7 +124,7 @@ autotix:
 #        "sidecar.istio.io/inject": false
     auditing:
       enabled: false
-#      url: "https://home.auditing-server.com:1234"
+#      url: "http://ua-monitor-svc.monitoring.svc.cluster.local:3333/monitoring/v1/audit"
     lookup_user_svc:
       value: nativesssd
 
